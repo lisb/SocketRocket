@@ -240,7 +240,8 @@
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         __strong typeof(wself) sself = wself;
         if (!error) {
-            NSString *script = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSString *script = nil;
+            [NSString stringEncodingForData:data encodingOptions:nil convertedString:&script usedLossyConversion:nil];
             [sself _runPACScript:script withProxySettings:proxySettings];
         } else {
             [sself _openConnection];
