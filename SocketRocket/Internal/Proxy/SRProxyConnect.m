@@ -240,8 +240,20 @@
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         __strong typeof(wself) sself = wself;
         if (!error) {
-            NSString *script = nil;
-            [NSString stringEncodingForData:data encodingOptions:nil convertedString:&script usedLossyConversion:nil];
+            NSString* encodingName = [response textEncodingName];
+            NSString* script = nil;
+            if (encodingName) {
+                CFStringEncoding encoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)encodingName);
+                if (encoding != kCFStringEncodingInvalidId) {
+                    script = [[NSString alloc] initWithData:data encoding:CFStringConvertEncodingToNSStringEncoding(encoding)];
+                }
+            }
+            if (!script) {
+                script = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            }
+            if (!script) {
+                script = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
+            }
             [sself _runPACScript:script withProxySettings:proxySettings];
         } else {
             [sself _openConnection];
