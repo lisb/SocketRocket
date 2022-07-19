@@ -251,9 +251,6 @@
             if (!script) {
                 script = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             }
-            if (!script) {
-                script = [[NSString alloc] initWithData:data encoding:NSShiftJISStringEncoding];
-            }
             [sself _runPACScript:script withProxySettings:proxySettings];
         } else {
             [sself _openConnection];
