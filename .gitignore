@@ -3,6 +3,7 @@
 *.egg-info
 reports/
 build/
+.build/
 nohup.out
 .DS_Store
 xcuserdata/
