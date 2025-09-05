@@ -1,0 +1,5 @@
+module SocketRocket {
+    header "SocketRocket/SocketRocket.h"
+
+    export *
+}
