@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "SocketRocket",
     defaultLocalization: "en",
-    platforms: [.iOS(.v12)],
+    platforms: [.macOS(.v11), .iOS(.v12)],
     products: [
         .library(
             name: "SocketRocket",
@@ -17,7 +17,16 @@ let package = Package(
         .target(
             name: "SocketRocket",
             path: ".",
-            exclude: ["SocketRocket/Resources"],
+            exclude: [
+                "SocketRocket/Resources",
+                "TestChat",
+                "TestChatServer",
+                "Tests",
+                "TestSupport",
+                "Configurations",
+                "SocketRocket.xcodeproj",
+                "Vendor",
+            ],
             sources: [
                 "include/SocketRocket/SRWebSocket.h",
                 "include/SocketRocket/NSRunLoop+SRWebSocket.h",
